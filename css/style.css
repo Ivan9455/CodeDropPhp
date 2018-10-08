@@ -20,3 +20,9 @@
     height: 100%;
     text-decoration: none;
 }
+.error{
+    border: 2px solid red;
+}
+.block_error{
+    color:red;
+}

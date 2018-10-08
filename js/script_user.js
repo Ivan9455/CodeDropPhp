@@ -1,29 +1,94 @@
 $(document).ready(function () {
     User.event();
 });
-let userObj = function (name, email, status) {
-    this.name = name;
-    this.email = email;
-    this.satus = status;
-};
+
 let User = {
+    add: function (name, email, status) {
+        let json = {};
+        json.name = name;
+        json.email = email;
+        json.status = status;
+        console.log(json)
+        $.ajax({
+            type: "POST",
+            url: "/src/ajax/user/add.php",
+            data:{
+                json:JSON.stringify(json)
+            }
+        }).done(function (result) {
+            console.log(result)
+        });
+    },
     event: function () {
-        $(".add").on('click', ".add", function () {
+        $(".add").click(function () {
             let name = $(".name").val();
             let email = $(".email").val();
             let status = $(".status").val();
-
+            if (UserValid.name(name, ".name", ".name_error") &
+                UserValid.email(email, ".email", ".email_error") &
+                UserValid.status(status, ".status", ".status_error")) {
+                User.add(name,email,status);
+            }
+            //User.add(name,email,status);
         })
     },
-    /*
-    nameValid: function (name, block_error) {
+    // load:function () {
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "/src/ajax/user/load.php",
+    //         data:{
+    //             json:JSON.stringify(json)
+    //         }
+    //     }).done(function (result) {
+    //         console.log(result)
+    //     });
+    // }
 
-    },
-    emailValid: function (email, block_error) {
-
-    },
-    statusValid: function (status, block_error) {
-
-    },
-    */
 };
+let UserValid = {
+    name: function (name, block, block_error) {
+        if (name === "") {
+            $(block_error).html("Заполните поле!");
+            $(block).addClass("error");
+            return false;
+        } else if (name.length > 15) {
+            $(block_error).html("Слишком длинное имя!");
+            $(block).addClass("error");
+            return false;
+        } else {
+            $(block_error).html("");
+            $(block).removeClass("error");
+            return true;
+        }
+    },
+    email: function (email, block, block_error) {
+        if (email === "") {
+            $(block_error).html("Заполните поле!");
+            $(block).addClass("error");
+            return false;
+        } else if (email.length > 50) {
+            $(block_error).html("Слишком длинный Email!");
+            $(block).addClass("error");
+            return false;
+        } else {
+            $(block_error).html("");
+            $(block).removeClass("error");
+            return true;
+        }
+    },
+    status: function (status, block, block_error) {
+        if (status === "") {
+            $(block_error).html("Заполните поле!");
+            $(block).addClass("error");
+            return false;
+        } else if (isNaN(status)) {
+            $(block_error).html("Не число!");
+            $(block).addClass("error");
+            return false;
+        } else {
+            $(block_error).html("");
+            $(block).removeClass("error");
+            return true;
+        }
+    },
+}
