@@ -1,5 +1,6 @@
 $(document).ready(function () {
     User.event();
+    User.load();
 });
 
 let User = {
@@ -32,17 +33,21 @@ let User = {
             //User.add(name,email,status);
         })
     },
-    // load:function () {
-    //     $.ajax({
-    //         type: "POST",
-    //         url: "/src/ajax/user/load.php",
-    //         data:{
-    //             json:JSON.stringify(json)
-    //         }
-    //     }).done(function (result) {
-    //         console.log(result)
-    //     });
-    // }
+    load:function () {
+        $.ajax({
+            type: "POST",
+            url: "/src/ajax/user/load.php",
+            data:{}
+        }).done(function (result) {
+            console.log(result)
+        });
+        // let str = ajax("POST","/src/ajax/user/load.php",false);
+        // if (!isNaN(str)) {
+        //     return console.log("Ошибка " + str);
+        // }
+        // //let arr = str.message;
+        // console.log(str)
+    }
 
 };
 let UserValid = {
@@ -91,4 +96,13 @@ let UserValid = {
             return true;
         }
     },
-}
+};
+let ajax = function (method, url_api, asinc) {
+    let xhr = new XMLHttpRequest();
+    xhr.open(method, url_api, asinc);
+    xhr.send();
+    if (xhr.status == 200) {
+        return JSON.parse(xhr.responseText);
+    }
+    return xhr.status;
+};

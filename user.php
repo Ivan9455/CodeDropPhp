@@ -1,16 +1,8 @@
 <?php
-//$db = mysqli_connect(
-//    'localhost', 'root',
-//    'enot1147','CodeDrop');
-//require_once("src/database/DataBase.php");
-//$db = new DataBase();
-//$sql = "SELECT *FROM `User`";
-//$res = mysqli_query($db->getConnect(), $sql);
-////mysqli_free_result($res);
-//while ($pole = mysqli_fetch_array($res)) {
-//    echo $pole[0] . " " . $pole[1] . " " . $pole[2] . " " . $pole[3] . " ";
-//}
-//print_r($res)
+
+//require_once "src/ajax/user/load.php";
+//$db = new User();
+//print_r(($db->getUsers()))
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +45,7 @@ require_once("src/header.php");
         </div>
     </div>
 </div>
-<!--<script type="text/javascript" src="js/jquery.js"></script>-->
-<!--<script type="text/javascript" src="js/script_user.js"></script>-->
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/script_user.js"></script>
 </body>
 </html>
